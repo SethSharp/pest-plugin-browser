@@ -1,4 +1,4 @@
-name: Passing Test (with argument)
+name: Failing Test (without npm deps)
 
 on: ['push', 'pull_request']
 
@@ -39,4 +39,4 @@ jobs:
       run: composer update --${{ matrix.dependency-version }} --no-interaction --no-progress --ansi
 
     - name: Tests
-      run: ./vendor/bin/pest --group=app --silence-playwright
+      run: ./vendor/bin/pest
