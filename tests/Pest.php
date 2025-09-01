@@ -8,3 +8,6 @@ use Tests\TestCase;
 pest()->uses(TestCase::class);
 
 Playwright::setTimeout(2000);
+
+pest()->group('app')
+    ->in('App');
