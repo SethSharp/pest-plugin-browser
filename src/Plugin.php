@@ -75,6 +75,12 @@ final class Plugin implements Bootable, HandlesArguments, Terminable // @pest-ar
             $arguments = $this->popArgument('--diff', $arguments);
         }
 
+        if ($this->hasArgument('--silence-playwright', $arguments)) {
+            Playwright::setPlaywrightSilenced();
+
+            $arguments = $this->popArgument('--silence-playwright', $arguments);
+        }
+
         if ($this->hasArgument('--debug', $arguments)) {
             Playwright::setShouldDebugAssertions();
 

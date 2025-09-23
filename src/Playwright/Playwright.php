@@ -34,6 +34,8 @@ final class Playwright
      */
     private static bool $shouldDiffOnScreenshotAssertions = false;
 
+    private static bool $playwrightSilenced = false;
+
     /**
      * The default browser type.
      */
@@ -100,6 +102,11 @@ final class Playwright
         self::$shouldDiffOnScreenshotAssertions = true;
     }
 
+    public static function setPlaywrightSilenced(): void
+    {
+        self::$playwrightSilenced = true;
+    }
+
     /**
      * Set the default color scheme.
      */
@@ -140,6 +147,11 @@ final class Playwright
     public static function defaultColorScheme(): ColorScheme
     {
         return self::$defaultColorScheme;
+    }
+
+    public static function isPlaywrightSilenced(): bool
+    {
+        return self::$playwrightSilenced;
     }
 
     /**

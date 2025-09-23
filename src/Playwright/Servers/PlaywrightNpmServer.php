@@ -76,7 +76,7 @@ final class PlaywrightNpmServer implements PlaywrightServer
             fn (string $type, string $output): bool => str_contains($output, $this->until)
         );
 
-        if ($this->isRunning() === false) {
+        if ($this->isRunning() === false && ! Playwright::isPlaywrightSilenced()) {
             self::ensurePlaywrightIsInstalledAndVersionIsSupported();
 
             throw new PlaywrightNotInstalledException();
