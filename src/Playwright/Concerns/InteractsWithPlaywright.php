@@ -15,6 +15,24 @@ use Pest\Browser\Support\JavaScriptSerializer;
 trait InteractsWithPlaywright
 {
     /**
+     * Start holding down key
+     */
+    public function keyDown(string $key): void
+    {
+        $response = $this->sendMessage('keyboardDown', ['key' => $key]);
+        $this->processVoidResponse($response);
+    }
+
+    /**
+     * Let go of key
+     */
+    public function keyUp(string $key): void
+    {
+        $response = $this->sendMessage('keyboardUp', ['key' => $key]);
+        $this->processVoidResponse($response);
+    }
+
+    /**
      * Send a message to the server via the channel
      *
      * @param  array<string, mixed>  $params
@@ -177,5 +195,21 @@ trait InteractsWithPlaywright
         }
 
         return '';
+    }
+
+    /**
+     * Process response to handle Frame result messages.
+     * Returns frame GUID if a Frame object was returned.
+     */
+    private function processFrameCreationResponse(Generator $response): ?string
+    {
+        /** @var array{result?: array{frame?: array{guid?: string}}} $message */
+        foreach ($response as $message) {
+            if (isset($message['result']['frame']['guid'])) {
+                return $message['result']['frame']['guid'];
+            }
+        }
+
+        return null;
     }
 }
